@@ -13,4 +13,8 @@ SyntaxError: invalid token
 
 Python2 used a leading 0 to indicate an octal number, but in 3 this is invalid. So,
 
-1. Compile uWSGI to interprety 2.7
+1. Compile uWSGI to interpret only 2.7. This guide was made with 2.0.4
+  * Instead of building it with "make", you can build with python:
+  ```python2.7 uwsgiconfig.py --build```
+    Compiling it with a specific version of python in turn sets the interpreter
+2. Download MoinMoin. This guide used 1.9.9. 
