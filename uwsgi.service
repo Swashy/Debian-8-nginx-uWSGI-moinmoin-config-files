@@ -1,0 +1,20 @@
+[Unit]
+Description=uWSGI moinmoin
+After=syslog.target
+
+[Service]
+ExecStart=/usr/bin/uwsgi --honour-stdin  --ini /srv/moin/wiki/uwsgi.ini
+ExecReload=/usr/bin/uwsgi --honour-stdin  --ini /srv/moin/wiki/uwsgi.ini --reload
+ExecReload=/usr/bin/uwsgi --honour-stdin --ini /srv/moin/wiki/uwsgi.ini --stop
+Restart=no
+User=moin
+#RuntimeDirectory=moin
+Group=nginx
+#Restart=always
+KillSignal=SIGQUIT
+Type=notify
+StandardError=syslog
+NotifyAccess=all
+
+[Install]
+WantedBy=multi-user.target
