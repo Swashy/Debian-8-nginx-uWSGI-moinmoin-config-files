@@ -1,11 +1,20 @@
 [Unit]
 Description=uWSGI moinmoin
-After=syslog.target
+After=syslog.target network-online.target nginx.service
 
 [Service]
-ExecStart=/usr/bin/uwsgi --honour-stdin  --ini /srv/moin/wiki/uwsgi.ini
+# The /var/run/ directory is not boot persistent, and only root can modify the directory for good security
+# reasons. Therefore we should not be modifying /var/run/ permissions so that we can make a moin socket,
+# but instead making a directory and giving it proper permissions during runtime.
+# Can only run one execstart, so gotta do a pre with a script that doesn't fail so the entire systemd unit
+# doesn't fail if the folder we're trying to make doesn't exist
+ExecStartPre=/usr/local/bin/uwsgi-create-sock-dir.sh
+
+#For some reason, starting the socket from the .ini file didn't work, but starting it from this command did....
+ExecStart=/usr/bin/uwsgi --honour-stdin  --ini /srv/moin/wiki/uwsgi.ini --socket /var/run/moin/moin.sock
 ExecReload=/usr/bin/uwsgi --honour-stdin  --ini /srv/moin/wiki/uwsgi.ini --reload
 ExecReload=/usr/bin/uwsgi --honour-stdin --ini /srv/moin/wiki/uwsgi.ini --stop
+
 Restart=no
 User=moin
 #RuntimeDirectory=moin
