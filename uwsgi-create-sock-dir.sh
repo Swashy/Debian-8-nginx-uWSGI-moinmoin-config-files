@@ -8,6 +8,7 @@ chown moin:nginx /var/run/moin
 #Add exec/write to other, because otherwise uwsgi cannot make the socket file for
 #some stupid reason
 chmod 664 /var/run/moin
+chmod ug+x /var/run/moin
 #Run an echo so this script always returns a successful execution value (0)
 echo "Failure is not an option."
 exit 0
