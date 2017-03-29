@@ -1,4 +1,4 @@
-This repo tracks the three essential files for getting MoinMoin, a free wsgi python wiki, communicating to uWSGI and being served by Nginx on Debian 8.
+This repo tracks the three essential files for getting MoinMoin, a free wsgi python wiki, communicating to uWSGI and being served by Nginx on Debian 8. https://moinmo.in/
 
 This guide is unusual in that most guides in their installation "how-tos" are for Apache, and there's only 2 for Nginx.
 Debian 8 has systemd so this made it more difficult. You need a proper uWSGI systemd unit if you want restarting and stopping to be easy.
